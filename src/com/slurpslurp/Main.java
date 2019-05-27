@@ -15,10 +15,10 @@ public class Main {
 
         //some parts are timing based and expect a non-1998 internet connection.
 
-        //disable system.err since selenium displays a shit ton of errors
-        System.setErr(new PrintStream(new OutputStream() {@Override public void write(int b) {}}));
-
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\Mathis\\Downloads\\geckodriver-v0.24.0-win64\\geckodriver.exe");
+        if (System.getProperty("os.name").contains("Win"))
+            System.setProperty("webdriver.gecko.driver","res\\geckodriver.exe");
+        else
+            System.setProperty("webdriver.gecko.driver","res/geckodriver");
         WebDriver driver = new FirefoxDriver();
         WebDriverWait w = new WebDriverWait(driver, 30);
 
