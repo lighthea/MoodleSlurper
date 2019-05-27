@@ -1,5 +1,9 @@
 package com.slurpslurp;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +34,22 @@ public enum Section {
 
     private String name;
 
-    public static final List<Section> ALL = Arrays.asList(values());
+    public static final List<Section>   ALL = Arrays.asList(values());
+    public        List<Course>    COURSES;
 
+    public void initialiseCourseList (WebDriver driver) {
+
+        List<WebElement> availableCourses = driver.findElements(By.className("coursename"));;
+        int i = 0;
+        if (availableCourses.size() != 0) {
+            for (WebElement courses :
+                    availableCourses) {
+
+                COURSES.add(new Course(courses.findElement(By.cssSelector("a")).getAttribute("href")));
+                COURSES.get(i).testUsability(driver);
+                ++i;
+            }
+        }
+    }
 }
+

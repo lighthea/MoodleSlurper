@@ -2,6 +2,7 @@ package com.slurpslurp;
 @SuppressWarnings("unused")
 
 public enum Level {
+
     BA("Bachelor"), MA("Master");
 
     Level(String s){

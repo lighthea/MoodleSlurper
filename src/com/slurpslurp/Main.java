@@ -2,6 +2,8 @@ package com.slurpslurp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,11 +17,18 @@ public class Main {
 
         //some parts are timing based and expect a non-1998 internet connection.
 
-        //disable system.err since selenium displays a shit ton of errors
-        System.setErr(new PrintStream(new OutputStream() {@Override public void write(int b) {}}));
-        System.setProperty("webdriver.gecko.driver","res/geckodriver" + (System.getProperty("os.name").contains("Win") ? ".exe" : ""));
 
-        WebDriver driver = new FirefoxDriver();
+        FirefoxProfile firefoxProfile=new FirefoxProfile();
+        firefoxProfile.setPreference("browser.download.folderList",2);
+        firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
+        firefoxProfile.setPreference("browser.download.dir", "res");
+        firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","application/pdf");
+        //disable system.err since selenium displays a shit ton of errors
+        System.setProperty("webdriver.gecko.driver","res/geckodriver" + (System.getProperty("os.name").contains("Win") ? ".exe" : ""));
+        FirefoxOptions options = new FirefoxOptions();
+        options.setProfile(firefoxProfile);
+        WebDriver driver = new FirefoxDriver(options);
+
         //looks for firefox (position should be in the vm arguments)
         WebDriverWait w = new WebDriverWait(driver, 30);
         //declares a wait time (30s) before crash if no feedback is received
@@ -36,26 +45,12 @@ public class Main {
 
         //clicks on "site home"
         textFinder(driver,"Site home");
+        pipeline.pipelineRun(driver);
 
-
-        for (Section s : Section.values()) { //for every section
-            for (Level l : Level.values()) {//for every level
-                returnHome(driver);        //go to moodle home page
-                textFinder(driver, s.sectionName()); //clicks on the section
-                textFinder(driver, l.levelName());   //clicks on the level
-                try {
-                    Thread.sleep(3000); //waits a bit
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
     }
 
-    private static void returnHome(WebDriver driver) {
-        driver.get("https://moodle.epfl.ch/?redirect=0");
-    }
+
 
     private static void textFinder(WebDriver w, String s){
         w.findElement(By.linkText(s)).click();
