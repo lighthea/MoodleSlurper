@@ -17,11 +17,8 @@ public class Main {
 
         //disable system.err since selenium displays a shit ton of errors
         System.setErr(new PrintStream(new OutputStream() {@Override public void write(int b) {}}));
+        System.setProperty("webdriver.gecko.driver","res/geckodriver" + (System.getProperty("os.name").contains("Win") ? ".exe" : ""));
 
-        if (System.getProperty("os.name").contains("Win"))
-            System.setProperty("webdriver.gecko.driver","res\\geckodriver.exe");
-        else
-            System.setProperty("webdriver.gecko.driver","res/geckodriver");
         WebDriver driver = new FirefoxDriver();
         WebDriverWait w = new WebDriverWait(driver, 30);
 
