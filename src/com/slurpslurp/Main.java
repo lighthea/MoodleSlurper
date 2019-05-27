@@ -15,6 +15,9 @@ public class Main {
 
         //some parts are timing based and expect a non-1998 internet connection.
 
+        //disable system.err since selenium displays a shit ton of errors
+        System.setErr(new PrintStream(new OutputStream() {@Override public void write(int b) {}}));
+
         if (System.getProperty("os.name").contains("Win"))
             System.setProperty("webdriver.gecko.driver","res\\geckodriver.exe");
         else
@@ -34,8 +37,8 @@ public class Main {
 
 
         for(Section s : Section.values()){
-            returnHome(driver);
             for(Level l : Level.values()) {
+                returnHome(driver);
                 textFinder(driver, s.sectionName());
                 textFinder(driver, l.levelName());
                 try {
