@@ -3,7 +3,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -22,20 +21,31 @@ public class Main {
         WebDriver driver = new FirefoxDriver();
 
         // launch Firefox and direct it to moodle
-        driver.get("http://moodle.epfl.ch");
-
+        driver.get("https://moodle.epfl.ch");
 
         textFinder(driver, "Log in");
 
         while(!driver.getTitle().equals("Dashboard")){
             sleep(100);
         }
-        sleep(100);
+        sleep(500);
 
         textFinder(driver,"Site home");
-        textFinder(driver,"Mathématiques (MA)");
+        for(Section s : Section.values()){
+            returnHome(driver);
+            for(Level l : Level.values()) {
+                textFinder(driver, s.sectionName());
+                textFinder(driver, l.levelName());
+                sleep(3000);
+            }
+        }
 
     }
+
+    private static void returnHome(WebDriver driver) {
+        driver.get("https://moodle.epfl.ch/?redirect=0");
+    }
+
     private static void textFinder(WebDriver w, String s){
         w.findElement(By.linkText(s)).click();
     }

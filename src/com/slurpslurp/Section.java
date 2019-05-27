@@ -8,11 +8,9 @@ public enum Section {
 
     AR("Architecture (AR)"),
     CGC("Chimie, Génie Chimique (CGC)"),
-    CMS("Cours Préparatoire (CMS)"),
-    ED("Ecole doctorale (ED)"),
     GC("Génie civil (GC)"),
     EL("Génie électrique et électronique (EL)"),
-    GM("Génie mécanique (GM) "),
+    GM("Génie mécanique (GM)"),
     IN("Informatique (IN)"),
     MX("Matériaux (MX)"),
     MA("Mathématiques (MA)"),
