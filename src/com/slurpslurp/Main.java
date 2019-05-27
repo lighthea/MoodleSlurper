@@ -20,7 +20,7 @@ public class Main {
 
         System.setProperty("webdriver.gecko.driver","C:\\Users\\Mathis\\Downloads\\geckodriver-v0.24.0-win64\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
-        WebDriverWait w = new WebDriverWait(driver, 10);
+        WebDriverWait w = new WebDriverWait(driver, 30);
 
         // launch Firefox and direct it to moodle
         driver.get("https://moodle.epfl.ch");
@@ -28,9 +28,11 @@ public class Main {
         textFinder(driver, "Log in");
 
         w.until(ExpectedConditions.titleIs("Dashboard"));
-
         w.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Moodle")));
+
         textFinder(driver,"Site home");
+
+
         for(Section s : Section.values()){
             returnHome(driver);
             for(Level l : Level.values()) {
