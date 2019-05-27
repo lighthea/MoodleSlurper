@@ -20,26 +20,31 @@ public class Main {
         System.setProperty("webdriver.gecko.driver","res/geckodriver" + (System.getProperty("os.name").contains("Win") ? ".exe" : ""));
 
         WebDriver driver = new FirefoxDriver();
+        //looks for firefox (position should be in the vm arguments)
         WebDriverWait w = new WebDriverWait(driver, 30);
+        //declares a wait time (30s) before crash if no feedback is received
 
         // launch Firefox and direct it to moodle
         driver.get("https://moodle.epfl.ch");
 
+        //clicks on login
         textFinder(driver, "Log in");
 
+        //waits until tab is named dashboard and "Moodle" is written somewhere on the screen
         w.until(ExpectedConditions.titleIs("Dashboard"));
         w.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Moodle")));
 
+        //clicks on "site home"
         textFinder(driver,"Site home");
 
 
-        for(Section s : Section.values()){
-            for(Level l : Level.values()) {
-                returnHome(driver);
-                textFinder(driver, s.sectionName());
-                textFinder(driver, l.levelName());
+        for (Section s : Section.values()) { //for every section
+            for (Level l : Level.values()) {//for every level
+                returnHome(driver);        //go to moodle home page
+                textFinder(driver, s.sectionName()); //clicks on the section
+                textFinder(driver, l.levelName());   //clicks on the level
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(3000); //waits a bit
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
