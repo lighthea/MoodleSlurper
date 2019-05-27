@@ -2,6 +2,8 @@ package com.slurpslurp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -16,27 +18,29 @@ public class Main {
         //disable system.err since selenium displays a shit ton of errors
         System.setErr(new PrintStream(new OutputStream() {@Override public void write(int b) {}}));
 
-
         System.setProperty("webdriver.gecko.driver","C:\\Users\\Mathis\\Downloads\\geckodriver-v0.24.0-win64\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
+        WebDriverWait w = new WebDriverWait(driver, 10);
 
         // launch Firefox and direct it to moodle
         driver.get("https://moodle.epfl.ch");
 
         textFinder(driver, "Log in");
 
-        while(!driver.getTitle().equals("Dashboard")){
-            sleep(100);
-        }
-        sleep(500);
+        w.until(ExpectedConditions.titleIs("Dashboard"));
 
+        w.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Moodle")));
         textFinder(driver,"Site home");
         for(Section s : Section.values()){
             returnHome(driver);
             for(Level l : Level.values()) {
                 textFinder(driver, s.sectionName());
                 textFinder(driver, l.levelName());
-                sleep(3000);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -50,11 +54,4 @@ public class Main {
         w.findElement(By.linkText(s)).click();
     }
 
-    private static void sleep(long l){
-        try {
-            Thread.sleep(l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
