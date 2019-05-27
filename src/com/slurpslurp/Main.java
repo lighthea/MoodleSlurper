@@ -18,15 +18,13 @@ public class Main {
         System.setErr(new PrintStream(new OutputStream() {@Override public void write(int b) {}}));
 
 
-        // declaration and instantiation of objects/variables
         System.setProperty("webdriver.gecko.driver","C:\\Users\\Mathis\\Downloads\\geckodriver-v0.24.0-win64\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
 
-        String baseUrl = "http://moodle.epfl.ch";
+        // launch Firefox and direct it to moodle
+        driver.get("http://moodle.epfl.ch");
 
 
-        // launch Firefox and direct it to the Base URL
-        driver.get(baseUrl);
         textFinder(driver, "Log in");
 
         while(!driver.getTitle().equals("Dashboard")){

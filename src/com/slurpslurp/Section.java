@@ -1,5 +1,8 @@
 package com.slurpslurp;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SuppressWarnings("unused")
 public enum Section {
 
@@ -28,5 +31,7 @@ public enum Section {
     }
 
     private String name;
+
+    public static final List<Section> ALL = Arrays.asList(values());
 
 }
