@@ -42,9 +42,8 @@ public enum Section {
         List<WebElement> availableCourses = driver.findElements(By.className("coursename"));;
         int i = 0;
         if (availableCourses.size() != 0) {
-            for (WebElement courses :
-                    availableCourses) {
-
+            for (WebElement courses : availableCourses) {
+                //Todo : crashes here
                 COURSES.add(new Course(courses.findElement(By.cssSelector("a")).getAttribute("href")));
                 COURSES.get(i).testUsability(driver);
                 ++i;

@@ -20,14 +20,9 @@ public class Course {
         driver.get(url);
         try {
             if (driver.findElements(By.name("submitbutton")).size() != 0)
-            {
                 driver.findElement(By.name("submitbutton")).click();
-                isEnrolled = driver.findElements(By.name("search")).size() != 0;
-                driver.get(past);
-                return;
-            }
-            //TODO : alexandre
-            isEnrolled =  driver.findElements(By.name("search")).size() != 0;
+
+            isEnrolled = driver.findElements(By.name("search")).size() != 0;
             driver.get(past);
         }
         catch (Exception e)
