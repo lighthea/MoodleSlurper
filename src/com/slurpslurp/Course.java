@@ -13,8 +13,6 @@ public class Course {
 
     Course(String url){
         this.url = url;
-
-
     }
 
     public void testUsability(WebDriver driver){
@@ -25,8 +23,10 @@ public class Course {
             {
                 driver.findElement(By.name("submitbutton")).click();
                 isEnrolled = driver.findElements(By.name("search")).size() != 0;
+                driver.get(past);
+                return;
             }
-
+            //TODO : alexandre
             isEnrolled =  driver.findElements(By.name("search")).size() != 0;
             driver.get(past);
         }
