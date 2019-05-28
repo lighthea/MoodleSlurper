@@ -3,9 +3,6 @@ package com.slurpslurp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-
 public class Course {
 
     private final String url;
@@ -24,14 +21,14 @@ public class Course {
 
             isEnrolled = driver.findElements(By.name("search")).size() != 0;
             driver.get(past);
+
         }
         catch (Exception e)
         {
             isEnrolled =  false;
             driver.get(past);
-        }
 
-        driver.get(past);
+        }
     }
 
     public void downloadContents (WebDriver driver){
@@ -44,6 +41,9 @@ public class Course {
             }
         } catch (Exception e){
             e.printStackTrace();
+            driver.get(past);
         }
+
+        driver.get(past);
     }
 }

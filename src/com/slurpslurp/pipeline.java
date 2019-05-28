@@ -4,20 +4,29 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class pipeline {
+
+
     static void pipelineRun(WebDriver driver)
     {
-        for (Section s : Section.values()) { //for every section
+        List<Section> sectionList = new LinkedList<>();
+
+        for (Section.Sections s : Section.Sections.values()) { //for every section
+            sectionList.add(new Section(s.sectionName()));
             returnHome(driver);        //go to moodle home page
             textFinder(driver, s.sectionName()); //clicks on the section
 
             for (Level l : Level.values()) {//for every level
 
                 textFinder(driver, l.levelName());   //clicks on the level
-                s.initialiseCourseList(driver);
+
+                sectionList.get(sectionList.size() - 1).initialiseCourseList(driver);
 
                 for (Course c :
-                        s.COURSES) {
+                        sectionList.get(sectionList.size() - 1).COURSES) {
                     c.downloadContents(driver);
                 }
             }
