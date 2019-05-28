@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("unused")
 
@@ -52,14 +53,17 @@ public class Section {
         public void initialiseCourseList(WebDriver driver) {
 
             List<WebElement> availableCourses = driver.findElements(By.className("coursename"));
-
+            String s = driver.getCurrentUrl();
             if (availableCourses.size() != 0) {
                 for (WebElement courses : availableCourses) {
 
+                    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
                     Course c = new Course(courses.findElement(By.cssSelector("a")).getAttribute("href"));
                     COURSES.add(c);
                     COURSES.get(COURSES.size() - 1).testUsability(driver);
 
+                    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+                    driver.get(s);
                 }
             }
         }
