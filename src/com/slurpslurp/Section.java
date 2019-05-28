@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -46,7 +47,7 @@ public class Section {
 
         private String SectionType;
 
-        public  List<Course> COURSES;
+        public  List<Course> COURSES = new LinkedList<>();
 
         public void initialiseCourseList(WebDriver driver) {
 
@@ -55,7 +56,8 @@ public class Section {
             if (availableCourses.size() != 0) {
                 for (WebElement courses : availableCourses) {
 
-                    COURSES.add(new Course(courses.findElement(By.cssSelector("a")).getAttribute("href")));
+                    Course c = new Course(courses.findElement(By.cssSelector("a")).getAttribute("href"));
+                    COURSES.add(c);
                     COURSES.get(COURSES.size() - 1).testUsability(driver);
 
                 }
