@@ -63,8 +63,7 @@ public class Section {
             if (availableCourses.size() != 0) {
                 for (Course courses : COURSES) {
 
-                    COURSES.get(COURSES.size() - 1).testUsability(driver);
-
+                    courses.testUsability(driver);
                     driver.get(s);
                 }
             }
