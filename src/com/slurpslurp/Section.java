@@ -56,16 +56,15 @@ public class Section {
             String s = driver.getCurrentUrl();
             for (WebElement w :
                     availableCourses) {
+
                 COURSES.add(new Course(w.findElement(By.cssSelector("a")).getAttribute("href")));
             }
 
             if (availableCourses.size() != 0) {
-                for (WebElement courses : availableCourses) {
+                for (Course courses : COURSES) {
 
-                    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
                     COURSES.get(COURSES.size() - 1).testUsability(driver);
 
-                    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                     driver.get(s);
                 }
             }
