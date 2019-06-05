@@ -19,7 +19,7 @@ public class Course {
 
         String past = driver.getCurrentUrl();
 
-        String s = driver.findElement(By.className("dropdown show")).findElement(By.cssSelector("a")).getAttribute("href");
+        String s = driver.findElement(By.className("dropdown")).findElement(By.cssSelector("a")).getAttribute("href");
         driver.get(s);
         driver.findElement(By.className("btn btn-primary")).click();
 
