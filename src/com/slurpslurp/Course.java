@@ -15,6 +15,15 @@ public class Course {
         this.url = url;
     }
 
+    public void desenroll(WebDriver driver){
+
+        String past = driver.getCurrentUrl();
+
+        driver.findElement(By.name("Actions menu")).findElement((By.cssSelector("a"))).click();
+        driver.findElement(By.className("btn btn-primary")).click();
+        driver.get(past);
+    }
+
     public void testUsability(WebDriver driver){
         String past = driver.getCurrentUrl();
         driver.get(url);

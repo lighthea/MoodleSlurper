@@ -15,7 +15,8 @@ public class FileSystem {
         File[] content = file.listFiles();
 
         for(int i = 0; i < content.length; i++) {
-            File newF = new File(string + content[i].getName());
+            File newF = new File(string+"/" + content[i].getName());
+
             content[i].renameTo(newF);
         }
     }
