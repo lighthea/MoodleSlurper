@@ -22,7 +22,7 @@ public class Course {
         driver.findElement(By.className("action-menu-trigger")).click();
         driver.findElement(By.className("dropdown-item")).click();
         driver.findElement(By.className("btn btn-primary")).click();
-        driver.get(past);
+
     }
 
     public void testUsability(WebDriver driver){
@@ -60,9 +60,10 @@ public class Course {
 
         } catch (Exception e){
             e.printStackTrace();
+            desenroll(driver);
             driver.get(past);
         }
-
+        desenroll(driver);
         driver.get(past);
     }
 }

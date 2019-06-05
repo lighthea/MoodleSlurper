@@ -33,7 +33,7 @@ public class pipeline {
                     c.downloadContents(driver);
 
                     FileSystem.moveToFolder(s.sectionName() + "/" + i++);
-                    c.desenroll(driver);
+
                 }
             }
         }
