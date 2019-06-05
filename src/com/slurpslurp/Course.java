@@ -3,6 +3,9 @@ package com.slurpslurp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
 public class Course {
 
     private final String url;
@@ -32,13 +35,19 @@ public class Course {
     }
 
     public void downloadContents (WebDriver driver){
+
         String past = driver.getCurrentUrl();
         driver.get(url);
+
+
         try {
-            for (WebElement element:
-            driver.findElements(By.className("instancename"))) {
-                element.click();
+            int numbercourse = driver.findElements(By.className("instancename")).size();
+
+            for (int i = 0; i < numbercourse; i++) {
+                driver.findElements(By.className("instancename")).get(i).click();
+                driver.get(url);
             }
+
         } catch (Exception e){
             e.printStackTrace();
             driver.get(past);

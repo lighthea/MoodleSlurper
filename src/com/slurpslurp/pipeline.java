@@ -15,6 +15,7 @@ public class pipeline {
         List<Section> sectionList = new LinkedList<>();
 
         for (Section.Sections s : Section.Sections.values()) { //for every section
+
             sectionList.add(new Section(s.sectionName()));
             returnHome(driver);        //go to moodle home page
             textFinder(driver, s.sectionName()); //clicks on the section

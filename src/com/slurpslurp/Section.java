@@ -61,11 +61,13 @@ public class Section {
             }
 
             if (availableCourses.size() != 0) {
+
                 for (Course courses : COURSES) {
 
                     courses.testUsability(driver);
                     driver.get(s);
                 }
+
             }
         }
 
