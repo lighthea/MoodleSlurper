@@ -27,11 +27,12 @@ public class pipeline {
 
                 sectionList.get(sectionList.size() - 1).initialiseCourseList(driver);
 
+                int i = 0;
                 for (Course c :
                         sectionList.get(sectionList.size() - 1).COURSES) {
                     c.downloadContents(driver);
 
-                    FileSystem.moveToFolder(s.sectionName());
+                    FileSystem.moveToFolder(s.sectionName() + "/" + i++);
                     c.desenroll(driver);
                 }
             }
