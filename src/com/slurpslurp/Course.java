@@ -19,8 +19,8 @@ public class Course {
 
         String past = driver.getCurrentUrl();
 
-        driver.findElement(By.id("dropdown-2")).click();
-        driver.findElement(By.id("action-menu-2-menu")).click();
+        driver.findElement(By.className("action-menu-trigger")).click();
+        driver.findElement(By.className("dropdown-item")).click();
         driver.findElement(By.className("btn btn-primary")).click();
         driver.get(past);
     }
