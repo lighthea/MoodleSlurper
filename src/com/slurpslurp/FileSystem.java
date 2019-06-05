@@ -3,7 +3,7 @@ package com.slurpslurp;
 import java.io.File;
 
 public class FileSystem {
-    void moveToFolder(String string){
+    static void  moveToFolder(String string){
 
         File folder = new File(string);
         if (!folder.exists())

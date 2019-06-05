@@ -14,6 +14,7 @@ public class pipeline {
     {
         List<Section> sectionList = new LinkedList<>();
 
+        FileSystem.moveToFolder("OLD");
         for (Section.Sections s : Section.Sections.values()) { //for every section
 
             sectionList.add(new Section(s.sectionName()));
@@ -29,6 +30,8 @@ public class pipeline {
                 for (Course c :
                         sectionList.get(sectionList.size() - 1).COURSES) {
                     c.downloadContents(driver);
+
+                    FileSystem.moveToFolder(s.sectionName());
                 }
             }
         }
