@@ -19,7 +19,7 @@ public class Course {
 
         String past = driver.getCurrentUrl();
 
-        driver.findElement(By.name("Actions menu")).findElement((By.cssSelector("a"))).click();
+        driver.findElement(By.cssSelector("a")).findElement((By.cssSelector("a"))).click();
         driver.findElement(By.className("btn btn-primary")).click();
         driver.get(past);
     }
