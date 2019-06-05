@@ -2,45 +2,28 @@ package com.slurpslurp;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class pipeline {
 
 
-    static void pipelineRun(WebDriver driver)
+    static void pipelineRun(WebDriver driver, Section.Sections section)
     {
-        List<Section> sectionList = new LinkedList<>();
 
-        FileSystem.moveToFolder("OLD");
-        for (Section.Sections s : Section.Sections.values()) { //for every section
+        textFinder(driver, section.sectionName());
 
-            sectionList.add(new Section(s.sectionName()));
-            returnHome(driver);        //go to moodle home page
-            textFinder(driver, s.sectionName()); //clicks on the section
+        for (Level l : Level.values()) {//for every level
 
-            for (Level l : Level.values()) {//for every level
+            textFinder(driver, l.levelName());   //clicks on the level
+            Section s = new Section(section.sectionName());
+            s.initialiseCourseList(driver);
 
-                textFinder(driver, l.levelName());   //clicks on the level
-
-                sectionList.get(sectionList.size() - 1).initialiseCourseList(driver);
-
-                int i = 0;
-                for (Course c :
-                        sectionList.get(sectionList.size() - 1).COURSES) {
+            int i = 0;
+            for (Course c : s.COURSES)
+            {
                     c.downloadContents(driver);
-
-                    FileSystem.moveToFolder(s.sectionName() + "/" + i++);
-
-                }
+                    FileSystem.moveToFolder(section.sectionName() + "/" + i++);
             }
         }
-
-    }
-    private static void returnHome(WebDriver driver) {
-        driver.get("https://moodle.epfl.ch/?redirect=0");
     }
     private static void textFinder(WebDriver w, String s){
         w.findElement(By.linkText(s)).click();

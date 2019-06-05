@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 
@@ -31,24 +33,36 @@ public class Main {
         System.setProperty("webdriver.gecko.driver","res/geckodriver" + (System.getProperty("os.name").contains("Win") ? ".exe" : ""));
         FirefoxOptions options = new FirefoxOptions();
         options.setProfile(firefoxProfile);
-        WebDriver driver = new FirefoxDriver(options);
 
+        List<WebDriver> driver = new LinkedList<>();
+        List<WebDriverWait> driverWaits = new LinkedList<>();
+        for (int i = 0; i < Section.Sections.values().length; i++) {
+            driver.add(new FirefoxDriver(options));
+
+
+            //declares a wait time (30s) before crash if no feedback is received
+        }
+
+        driver.parallelStream().forEach(i -> {
+
+            // launch Firefox and direct it to moodle
+            i.get("https://moodle.epfl.ch");
+
+
+            //clicks on login
+            textFinder(i, "Log in");
+
+            i.findElement(By.id("username")).sendKeys(args[0]);
+            i.findElement(By.id("password")).sendKeys(args[1]);
+
+            i.findElement(By.id("loginbutton")).click();
+
+            i.get("http://moodle.epfl.ch/course/index.php");
+        });
+
+        driver.parallelStream().forEach(i -> {pipeline.pipelineRun(i, Section.Sections.values()[driver.indexOf(i)]);});
         //looks for firefox (position should be in the vm arguments)
-        WebDriverWait w = new WebDriverWait(driver, 30);
-        //declares a wait time (30s) before crash if no feedback is received
 
-        // launch Firefox and direct it to moodle
-        driver.get("https://moodle.epfl.ch");
-
-        //clicks on login
-        textFinder(driver, "Log in");
-
-        //waits until tab is named dashboard and "Moodle" is written somewhere on the screen
-        w.until(ExpectedConditions.titleIs("Dashboard"));
-        w.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Moodle")));
-
-
-        pipeline.pipelineRun(driver);
 
 
     }

@@ -19,8 +19,16 @@ public class Course {
 
         String past = driver.getCurrentUrl();
 
-        String s = driver.findElement(By.className("dropdown")).findElement(By.cssSelector("a")).getAttribute("href");
+        String s ="e";
+        List<WebElement> webElementList = driver.findElement(By.className("dropdown")).findElements(By.cssSelector("a"));
+        for (WebElement w :
+                webElementList) {
+            if (w.getAttribute("href").contains("unenrolself"))
+                s = w.getAttribute("href");
+        }
+
         driver.get(s);
+
         driver.findElement(By.className("btn btn-primary")).click();
 
     }
@@ -60,10 +68,10 @@ public class Course {
 
         } catch (Exception e){
             e.printStackTrace();
-            desenroll(driver);
+            //desenroll(driver);
             driver.get(past);
         }
-        desenroll(driver);
+        //desenroll(driver);
         driver.get(past);
     }
 }

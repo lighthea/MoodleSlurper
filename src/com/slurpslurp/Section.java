@@ -52,6 +52,7 @@ public class Section {
 
         public void initialiseCourseList(WebDriver driver) {
 
+            if(true) return;
             List<WebElement> availableCourses = driver.findElements(By.className("coursename"));
             String s = driver.getCurrentUrl();
             for (WebElement w :
@@ -67,7 +68,6 @@ public class Section {
                     courses.testUsability(driver);
                     driver.get(s);
                 }
-
             }
         }
 
