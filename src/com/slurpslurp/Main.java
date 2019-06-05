@@ -23,6 +23,10 @@ public class Main {
         firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
         firefoxProfile.setPreference("browser.download.dir", "res");
         firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","application/pdf");
+
+        firefoxProfile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
+        firefoxProfile.setPreference("pdfjs.disabled", true);
+        firefoxProfile.setPreference("pdfjs.disabled", true);
         //disable system.err since selenium displays a shit ton of errors
         System.setProperty("webdriver.gecko.driver","res/geckodriver" + (System.getProperty("os.name").contains("Win") ? ".exe" : ""));
         FirefoxOptions options = new FirefoxOptions();
