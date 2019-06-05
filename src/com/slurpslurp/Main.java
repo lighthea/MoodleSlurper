@@ -43,8 +43,7 @@ public class Main {
         w.until(ExpectedConditions.titleIs("Dashboard"));
         w.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Moodle")));
 
-        //clicks on "site home"
-        textFinder(driver,"Site home");
+
         pipeline.pipelineRun(driver);
 
 

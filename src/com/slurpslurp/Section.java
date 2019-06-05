@@ -54,12 +54,15 @@ public class Section {
 
             List<WebElement> availableCourses = driver.findElements(By.className("coursename"));
             String s = driver.getCurrentUrl();
+            for (WebElement w :
+                    availableCourses) {
+                COURSES.add(new Course(w.findElement(By.cssSelector("a")).getAttribute("href")));
+            }
+
             if (availableCourses.size() != 0) {
                 for (WebElement courses : availableCourses) {
 
                     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-                    Course c = new Course(courses.findElement(By.cssSelector("a")).getAttribute("href"));
-                    COURSES.add(c);
                     COURSES.get(COURSES.size() - 1).testUsability(driver);
 
                     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
